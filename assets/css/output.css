@@ -1,0 +1,122 @@
+body {
+  background-color: #7e6792; }
+
+#page1form form {
+  margin-top: 130px;
+  border: 2px solid white;
+  border-radius: 20%; }
+  #page1form form p {
+    text-align: center;
+    font-family: cursive;
+    font-size: 2.5em;
+    font-style: italic;
+    color: white; }
+  #page1form form #error {
+    color: red;
+    font-size: 1.5em;
+    display: none; }
+  #page1form form input {
+    display: block;
+    width: 300px;
+    height: 35px;
+    margin: 30px auto;
+    border: 4px solid white;
+    border-radius: 20%;
+    background-color: #17615a;
+    outline: none;
+    text-align: center;
+    color: white;
+    font-size: 1.5em; }
+  #page1form form button {
+    display: block;
+    width: 100px;
+    height: 30px;
+    margin: 15px auto;
+    border: 4px solid white;
+    border-radius: 20%;
+    font-weight: bold;
+    background-color: #17615a;
+    color: white;
+    outline: none;
+    text-align: center; }
+
+#page2groceries {
+  color: white; }
+  #page2groceries table {
+    border: 2px solid black;
+    font-size: 2em;
+    width: 800px; }
+    #page2groceries table th, #page2groceries table td {
+      border: 2px solid black;
+      padding: 10px; }
+    #page2groceries table .first, #page2groceries table .second {
+      border: initial;
+      font-size: 0.4em; }
+    #page2groceries table tr .choose {
+      border: none;
+      padding-left: 35px; }
+  #page2groceries i, #page2groceries span {
+    font-size: 2em;
+    text-align: center;
+    padding: 20px; }
+  #page2groceries i:nth-child(5), #page2groceries i:nth-child(4) {
+    float: right;
+    display: inline-block; }
+
+#page3add {
+  margin: 15px auto;
+  color: white; }
+  #page3add input {
+    display: block;
+    width: 300px;
+    height: 35px;
+    margin: 30px auto;
+    border: 4px solid white;
+    border-radius: 20%;
+    background-color: #17615a;
+    outline: none;
+    text-align: center;
+    color: white;
+    font-size: 1.5em; }
+  #page3add button {
+    display: block;
+    width: 100px;
+    height: 30px;
+    margin: 15px auto;
+    border: 4px solid white;
+    border-radius: 20%;
+    font-weight: bold;
+    background-color: #17615a;
+    color: white;
+    outline: none;
+    text-align: center; }
+
+#page4edit {
+  margin: 15px auto;
+  color: white; }
+  #page4edit input {
+    display: block;
+    width: 300px;
+    height: 35px;
+    margin: 30px auto;
+    border: 4px solid white;
+    border-radius: 20%;
+    background-color: #17615a;
+    outline: none;
+    text-align: center;
+    color: white;
+    font-size: 1.5em; }
+  #page4edit button {
+    display: block;
+    width: 100px;
+    height: 30px;
+    margin: 15px auto;
+    border: 4px solid white;
+    border-radius: 20%;
+    font-weight: bold;
+    background-color: #17615a;
+    color: white;
+    outline: none;
+    text-align: center; }
+
+/*# sourceMappingURL=output.css.map */

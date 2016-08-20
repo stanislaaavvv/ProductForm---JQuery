@@ -1,0 +1,71 @@
+<div id='page3add'>
+    <form id="addForm">
+        <input type="hidden" name="key">
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="quantity" placeholder="Quantity">
+        <input type="text" name="price" placeholder="Price">
+        <button id='page3submit'>Add</button>
+    </form>
+</div>
+
+<script>
+    $(function() {
+        function Validation(name,quantity,price) {
+            if (!typeof(name) == 'string' || name == '' || quantity == '' || price == '') {
+                return false;
+            }
+            if (isNaN(quantity) || isNaN(price)) {
+                return false;
+            }
+
+            return true;
+        };
+
+        $("[name=key]").val(KEY);
+
+        $("#page3submit").on('click', function(e) {
+            e.preventDefault();
+            var form_data = $("#addForm").serialize();
+            var form_data_val = $("#addForm").serializeArray();
+            if (Validation(form_data_val[1].value,form_data_val[2].value,form_data_val[3].value)) {
+                $.ajax({
+                    url: 'assets/php/addproduct.php',
+                    method: 'post',
+                    data: form_data,
+                    dataType: 'json',
+                    success: function (resp) {
+                        $.get("groceries.html", function (data) {
+                            $("#wrapper").html(data);
+                        });
+
+                        var listProducts = function () {
+                            $.ajax({
+                                url: 'assets/php/getproducts.php',
+                                dataType: 'json',
+                                success: function (data) {
+                                    var html = '';
+                                    for (var product in data) {
+                                        html += "<tr class='row-" + product + "'>";
+                                        html += "<td class='row-" + product + "'>" + product + "</td>";
+                                        html += "<td>" + data[product].name + "</td>";
+                                        html += "<td>" + data[product].quantity + "</td>";
+                                        html += "<td>" + data[product].price + "</td>";
+                                        html += "<td style='font-size: 22px;' id='edit-" + product + "'><i class='fa fa-pencil'></i></td>";
+                                        html += "<td style='font-size: 22px;' id='delete-" + product + "'><i class='fa fa-minus-square-o'></i></td>";
+                                        html += "</tr>";
+                                    }
+
+                                    $("#wrapper table tbody").append(html);
+                                    KEY++;
+                                }
+                            });
+                        }();
+                    }
+                });
+            } else {
+                alert("Wrong Inputs!");
+            }
+        });
+
+    });
+</script>

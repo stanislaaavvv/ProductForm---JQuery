@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet"  type="text/css" href="assets/css/output.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div id='page1form'>
+        <form method='POST' action="assets/php/login.php">
+            <p>LOGIN</p>
+            <input id="username" name="username" type="text">
+            <input id="password" name="password" type="password">
+            <p id="error" >Wrong!Username: admin Password: admin</p>
+            <button id='page1submit' type="submit">Enter</button>
+        </form>
+    </div>
+</body>
+
+
+<script type="text/javascript">
+    $(function() {
+        $("#page1submit").on("click", function(event) {
+            event.preventDefault();
+            var form_data = $('#page1form form').serialize();
+
+            $.ajax({
+                url: 'assets/php/login.php',
+                method: 'post',
+                data: form_data,
+                dataType: 'json',
+                success: function(resp) {
+                    if (resp) {
+                        location = 'appwrapper.html';
+                    } else {
+                        $('p').show();
+                    }
+                }
+            });
+        });
+    });
+</script>
+</html>

@@ -1,0 +1,76 @@
+<div id='page2groceries'>
+    <span>Groceries</span>
+    <i id="addButton" class="fa fa-plus-square-o" fa-3x aria-hidden="true"></i>
+    <table>
+        <thead>
+        <tr>
+            <th>*</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script>
+
+    $(function() {
+        if (!$('tbody').html()) {
+            KEY = 1;
+            $.ajax({
+                url : 'assets/php/getproducts.php',
+                dataType: 'json',
+                success: function(data) {
+                    var html = '';
+                    for (var product in data) {
+                        html += "<tr class='row-" + product + "'>";
+                        html += "<td class='row-" + product + "'>" + product + "</td>";
+                        html += "<td>" + data[product].name + "</td>";
+                        html += "<td>" + data[product].quantity + "</td>";
+                        html += "<td>" + data[product].price + "</td>";
+                        html += "<td style='font-size: 22px;' id='edit-" + product + "'><i class='fa fa-pencil'></i></td>";
+                        html += "<td style='font-size: 22px;' id='delete-" + product + "'><i class='fa fa-minus-square-o'></i></td>";
+                        html += "</tr>";
+                    }
+
+                    $("#wrapper table tbody").append(html);
+                    KEY++;
+                }
+            });
+        }
+    setTimeout(function() {
+        $("#addButton").on('click', function() {
+            $.get("addproduct.html", function(data) {
+                $("#wrapper").html(data);
+            });
+        });
+
+        $("[id^='delete-']").on('click', function() {
+            var target  = $(event.target);
+            var key = target.parents('tr').attr('class').match(/\d+/)[0];
+
+            $.ajax({
+                url: 'assets/php/deleteproduct.php',
+                data: {key : key},
+                method: 'post',
+                dataType: 'json',
+                success: function() {
+                    target.closest('tr').remove();
+                }
+            });
+        });
+
+        $("[id^='edit-']").on('click', function() {
+            var curr = $(event.target).parents('tr').attr('class').match(/\d+/);
+            $.get("editproduct.html", function(contents) {
+                $("#wrapper").html(contents);
+                $("#editForm input[type=hidden]").val(curr);
+            });
+        });
+
+    }, 500);
+});
+</script>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+        <link rel="stylesheet"  type="text/css" href="assets/css/output.css">
+        <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+    </head>
+
+    <body>
+        <div id="wrapper">
+        </div>
+    </body>
+
+    <script type="text/javascript">
+        var KEY = 1;
+
+        $(function()  {
+            $.ajax({
+                url: 'assets/php/getsesslength.php',
+                dataType: 'json',
+                success: function(resp) {
+                    var KEY = resp;
+                }
+            });
+
+            $.get("groceries.html", function(data) {
+                $("#wrapper").html(data);
+            });
+        });
+    </script>
+</html>

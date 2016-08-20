@@ -1,0 +1,61 @@
+<div id='page4edit'>
+    <form id="editForm">
+        <input type="hidden" name="key"/>
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="quantity" placeholder="Quantity">
+        <input type="text" name="price" placeholder="Price">
+        <button id='editSubmit'>Edit</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var key = $('input[name=key]').val();
+        $.ajax({
+            url : 'assets/php/getproduct.php',
+            data : {key : key},
+            dataType : 'json',
+            method : 'post',
+            success: function(data) {
+                $('[name=name]').val(data.name);
+                $('[name=quantity').val(data.quantity);
+                $('[name=price]').val(data.price);
+            }
+        });
+
+        $('#editSubmit').on('click', function(e) {
+            e.preventDefault();
+            var form_data = $("#editForm").serialize();
+
+            $.ajax({
+                url : 'assets/php/editproduct.php',
+                data : form_data,
+                dataType : 'json',
+                method : 'post',
+                success: function(resp) {
+                    var name = $('[name=name]').val();
+                    var quantity = $('[name=quantity]').val();
+                    var price = $('[name=price]').val();
+                    var html = '';
+
+                    for (var product in resp) {
+                        html += "<tr class='row-" + product + "'>";
+                        html += "<td class='row-" + product + "'>" + product + "</td>";
+                        html += "<td>" + resp[product].name + "</td>";
+                        html += "<td>" + resp[product].quantity + "</td>";
+                        html += "<td>" + resp[product].price + "</td>";
+                        html += "<td style='font-size: 22px;' id='edit-" + product + "'><i class='fa fa-pencil'></i></td>";
+                        html += "<td style='font-size: 22px;' id='delete-" + product + "'><i class='fa fa-minus-square-o'></i></td>";
+                        html += "</tr>";
+                    }
+
+                    $.get("groceries.html", function(data) {
+                        $("#wrapper").html(data);
+                        $("#wrapper table tbody").append(html);
+                    });
+
+                }
+            });
+        });
+    });
+</script>
